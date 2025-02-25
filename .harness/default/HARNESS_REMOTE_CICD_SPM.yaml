@@ -1,0 +1,222 @@
+pipeline:
+  name: HARNESS REMOTE CICD SPM
+  identifier: HARNESS_REMOTE_CICD_SPM
+  projectIdentifier: SBOM_orchestration
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: <+pipeline.variables.REPOSITORY_CONNECTOR_REF>
+        repoName: <+pipeline.variables.REPOSITORY_NAME>
+        build:
+          spec:
+            branch: <+pipeline.variables.REPOSITORY_DEFAULT_BRANCH>
+          type: branch
+  stages:
+    - stage:
+        name: SCS
+        identifier: SSCA
+        description: ""
+        type: SecurityTests
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - parallel:
+                  - step:
+                      type: Owasp
+                      name: Owasp_1
+                      identifier: Owasp_1
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_OWASP>!="true"
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: Ignore
+                  - step:
+                      type: OsvScanner
+                      name: OsvScanner_1
+                      identifier: OsvScanner_1
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_OSV_SCANNER>!="true"
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: Ignore
+                  - step:
+                      type: Semgrep
+                      name: Semgrep_1
+                      identifier: Semgrep_1
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_SEMGREP>!="true"
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: Ignore
+                  - step:
+                      type: Gitleaks
+                      name: Gitleaks_1
+                      identifier: Gitleaks_1
+                      spec:
+                        mode: orchestration
+                        config: default
+                        target:
+                          type: repository
+                          detection: auto
+                        advanced:
+                          log:
+                            level: info
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_GITLEAKS>!="true"
+                      failureStrategies:
+                        - onFailure:
+                            errors:
+                              - AllErrors
+                            action:
+                              type: Ignore
+                  - step:
+                      type: SscaOrchestration
+                      name: SBOM Orchestration_1
+                      identifier: SBOMOrchestration_1
+                      spec:
+                        mode: generation
+                        tool:
+                          type: cdxgen
+                          spec:
+                            format: cyclonedx-json
+                        source:
+                          type: repository
+                          spec:
+                            url: <+pipeline.variables.REPOSITORY_URL>
+                            variant_type: branch
+                            variant: <+pipeline.variables.REPOSITORY_DEFAULT_BRANCH>
+                        sbom_drift:
+                          base: repository
+                          spec:
+                            variant: <+pipeline.variables.REPOSITORY_DEFAULT_BRANCH>
+                        resources:
+                          limits:
+                            memory: 500Mi
+                            cpu: "0.5"
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_SBOM_ORCHESTRATION>!="true"
+                  - step:
+                      type: SscaCompliance
+                      name: Ssca Compliance_1
+                      identifier: SscaCompliance_1
+                      spec:
+                        source:
+                          type: scm
+                          spec:
+                            connectorRef: <+pipeline.variables.REPOSITORY_CONNECTOR_REF>
+                            repoName: <+pipeline.variables.REPOSITORY_NAME>
+                            scan_org: true
+                      when:
+                        stageStatus: Success
+                        condition: <+pipeline.variables.SKIP_SSCA_COMPLIANCE>!="true"
+  variables:
+    - name: PIPELINE_VERSION
+      type: Number
+      description: Pipeline version for Harness Scan pipeline
+      required: false
+      value: 1
+    - name: REPOSITORY_CONNECTOR_REF
+      type: String
+      description: Repository connector identifier
+      required: true
+      value: <+input>
+    - name: REPOSITORY_NAME
+      type: String
+      description: Repository name
+      required: true
+      value: <+input>
+    - name: REPOSITORY_URL
+      type: String
+      description: Repository URL to scan
+      required: true
+      value: <+input>
+    - name: REPOSITORY_DEFAULT_BRANCH
+      type: String
+      description: Repository default branch to run scan on
+      required: true
+      value: <+input>
+    - name: SKIP_SEMGREP
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SKIP_OWASP
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SKIP_OSV_SCANNER
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SKIP_GITLEAKS
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SKIP_SBOM_ORCHESTRATION
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SKIP_SSCA_COMPLIANCE
+      type: String
+      description: ""
+      required: true
+      value: <+input>.default(false)
+    - name: SCAN_ORG_RULES
+      type: String
+      description: ""
+      required: false
+      value: <+input>.default(false)
