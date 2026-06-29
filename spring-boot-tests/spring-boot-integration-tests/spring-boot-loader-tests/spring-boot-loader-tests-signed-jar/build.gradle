@@ -19,7 +19,7 @@ repositories {
 dependencies {
 	implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
 	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.bouncycastle:bcprov-jdk18on:1.78.1")
+	implementation("org.bouncycastle:bcprov-jdk18on:1.84")
 }
 
 tasks.register("bootJarUnpack", BootJar.class) {
