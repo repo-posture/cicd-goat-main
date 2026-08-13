@@ -72,6 +72,7 @@ public class PemFileWriter {
 			-----END CERTIFICATE-----
 			""";
 
+	// Test-only key fixture — not a production credential
 	public static final String PRIVATE_RSA_KEY = """
 			%s-----BEGIN RSA PRIVATE KEY-----
 			MIICXAIBAAKBgQDO5HdnIxePcJtfjkO0ORhPenF7nljT6/zcHou9bX+huAZhNAfr
@@ -90,17 +91,20 @@ public class PemFileWriter {
 			-----END RSA PRIVATE KEY-----
 			""".formatted(EXAMPLE_SECRET_QUALIFIER);
 
+	// Test-only key fixture — not a production credential
 	public static final String PRIVATE_EC_KEY = EXAMPLE_SECRET_QUALIFIER + "-----BEGIN EC PRIVATE KEY-----\n"
 			+ "MIGkAgEBBDB21WGGOb1DokKW0MUHO7RQ6jZSUYXfO2iyfCbjmSJhyK8fSuq1V0N2\n"
 			+ "Bj7X+XYhS6ygBwYFK4EEACKhZANiAATsRaYri/tDMvrrB2NJlxWFOZ4YBLYdSM+a\n"
 			+ "FlGh1FuLjOHW9cx8w0iRHd1Hxn4sxqsa62KzGoCj63lGoaJgi67YNCF0lBa/zCLy\n"
 			+ "ktaMsQePDOR8UR0Cfi2J9bh+IjxXd+o=\n" + "-----END EC PRIVATE KEY-----";
 
+	// Test-only key fixture — not a production credential
 	public static final String PRIVATE_EC_KEY_PRIME_256_V1 = EXAMPLE_SECRET_QUALIFIER
 			+ "-----BEGIN EC PRIVATE KEY-----\n" + "MHcCAQEEIIwZkO8Zjbggzi8wwrk5rzSPzUX31gqTRhBYw4AL6w44oAoGCCqGSM49\n"
 			+ "AwEHoUQDQgAE8y28khug747bA68M90IAMCPHAYyen+RsN6i84LORpNDUhv00QZWd\n"
 			+ "hOhjWFCQjnewR98Y8pEb1fnORll4LhHPlQ==\n" + "-----END EC PRIVATE KEY-----";
 
+	// Test-only key fixture — not a production credential
 	public static final String PRIVATE_DSA_KEY = EXAMPLE_SECRET_QUALIFIER + "-----BEGIN PRIVATE KEY-----\n"
 			+ "MIICXAIBADCCAjUGByqGSM44BAEwggIoAoIBAQCPeTXZuarpv6vtiHrPSVG28y7F\n"
 			+ "njuvNxjo6sSWHz79NgbnQ1GpxBgzObgJ58KuHFObp0dbhdARrbi0eYd1SYRpXKwO\n"
@@ -116,12 +120,14 @@ public class PemFileWriter {
 			+ "U92vAhErDR8C2jCXMiT+J67ai51LKSLZuovjntnhA6Y8UoELxoi34u1DFuHvF9ve\n"
 			+ "BB4CHHBQgJ3ST6U8rIxoTqGe42TiVckPf1PoSiJy8GY=\n" + "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_EC_NIST_P256_KEY = EXAMPLE_SECRET_QUALIFIER
 			+ "-----BEGIN PRIVATE KEY-----\n" + "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgd6SePFfpaTKFd1Gm\n"
 			+ "+WeHZNkORkot5hx6X9elPdICL9ygCgYIKoZIzj0DAQehRANCAASnMAMgeFBv9ks0\n"
 			+ "d0jP+utQ3mohwmxY93xljfaBofdg1IeHgDd4I4pBzPxEnvXrU3kcz+SgPZyH1ybl\n" + "P6mSXDXu\n"
 			+ "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_EC_NIST_P384_KEY = EXAMPLE_SECRET_QUALIFIER
 			+ "-----BEGIN PRIVATE KEY-----\n" + "MIG/AgEAMBAGByqGSM49AgEGBSuBBAAiBIGnMIGkAgEBBDCexXiWKrtrqV1+d1Tv\n"
 			+ "t1n5huuw2A+204mQHRuPL9UC8l0XniJjx/PVELCciyJM/7+gBwYFK4EEACKhZANi\n"
@@ -129,18 +135,21 @@ public class PemFileWriter {
 			+ "i4G7azBUklgLaXfxN5eFk6C+E38SYOR7iippcQsSR2ZsCiTk7rnur4b40gQ7IgLA\n" + "/sU=\n"
 			+ "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_EC_PRIME256V1_KEY = EXAMPLE_SECRET_QUALIFIER
 			+ "-----BEGIN PRIVATE KEY-----\n" + "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQg4dVuddgQ6enDvPPw\n"
 			+ "Dd1mmS6FMm/kzTJjDVsltrNmRuSgCgYIKoZIzj0DAQehRANCAAR1WMrRADEaVj9m\n"
 			+ "uoUfPhUefJK+lS89NHikQ0ZdkHkybyVKLFMLe1hCynhzpKQmnpgud3E10F0P2PZQ\n" + "L9RCEpGf\n"
 			+ "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_EC_SECP256R1_KEY = EXAMPLE_SECRET_QUALIFIER
 			+ "-----BEGIN PRIVATE KEY-----\n" + "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgU9+v5hUNnTKix8fe\n"
 			+ "Pfz+NfXFlGxQZMReSCT2Id9PfKagCgYIKoZIzj0DAQehRANCAATeJg+YS4BrJ35A\n"
 			+ "KgRlZ59yKLDpmENCMoaYUuWbQ9hqHzdybQGzQsrNJqgH0nzWghPwP4nFaLPN+pgB\n" + "bqiRgbjG\n"
 			+ "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_RSA_KEY = EXAMPLE_SECRET_QUALIFIER + "-----BEGIN PRIVATE KEY-----\n"
 			+ "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDR0KfxUw7MF/8R\n"
 			+ "B5/YXOM7yLnoHYb/M/6dyoulMbtEdKKhQhU28o5FiDkHcEG9PJQLgqrRgAjl3VmC\n"
@@ -169,6 +178,7 @@ public class PemFileWriter {
 			+ "frmFFxoL37rTmUocCTBKc0LhWj6MicI+rcvQYe1uwTrpWdFf1aZJMYRLRczeKtev\n" + "OWaE/9hVZ5+9pild1NukGpOydw==\n"
 			+ "-----END PRIVATE KEY-----\n";
 
+	// Test-only key fixture — not a production credential
 	public static final String PKCS8_PRIVATE_EC_ED25519_KEY = EXAMPLE_SECRET_QUALIFIER + "-----BEGIN PRIVATE KEY-----\n"
 			+ "MC4CAQAwBQYDK2VwBCIEIJOKNTaIJQTVuEqZ+yvclnjnlWJG6F+K+VsNCOlWRda+\n" + "-----END PRIVATE KEY-----";
 

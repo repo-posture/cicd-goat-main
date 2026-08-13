@@ -66,6 +66,7 @@ class PemSslStoreBundleTests {
 			-----END CERTIFICATE-----
 			""".strip();
 
+	// Test-only key fixture — not a production credential
 	private static final String PRIVATE_KEY = """
 			-----BEGIN PRIVATE KEY-----
 			MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQD8B1saBN8Y0ZjX
