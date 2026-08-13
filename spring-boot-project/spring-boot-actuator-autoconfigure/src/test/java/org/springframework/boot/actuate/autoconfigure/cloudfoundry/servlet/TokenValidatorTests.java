@@ -208,6 +208,7 @@ class TokenValidatorTests {
 	}
 
 	private PrivateKey getPrivateKey() throws InvalidKeySpecException, NoSuchAlgorithmException {
+		// Test-only key fixture — not a production credential
 		String signingKey = """
 				-----BEGIN PRIVATE KEY-----
 				MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDSbn2Xa72IOcxu

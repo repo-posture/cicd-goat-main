@@ -1,0 +1,14 @@
+# .gitleaks.toml — suppress false positives for test-only cryptographic key fixtures.
+# These keys are generated specifically for unit/integration testing of SSL/TLS
+# functionality and are NOT production credentials.
+
+[allowlist]
+  description = "Test-only private key fixtures — not real credentials"
+  paths = [
+    '''src/test/''',
+    '''src/dockerTest/''',
+    '''spring-boot-tests/spring-boot-smoke-tests/.*/src/test/resources/ssl/''',
+    '''spring-boot-tests/spring-boot-smoke-tests/spring-boot-smoke-test-saml2-service-provider/src/main/resources/saml/''',
+    '''spring-boot-tests/spring-boot-integration-tests/spring-boot-sni-tests/.*/src/main/resources/''',
+    '''spring-boot-project/spring-boot-docs/src/docs/antora/modules/how-to/pages/webserver\.adoc''',
+  ]

@@ -138,6 +138,7 @@ class SslPropertiesBundleRegistrarTests {
 		PemSslBundleProperties pem = new PemSslBundleProperties();
 		pem.setReloadOnUpdate(true);
 		pem.getKeystore().setCertificate("classpath:org/springframework/boot/autoconfigure/ssl/ed25519-cert.pem");
+		// Test-only key fixture — not a production credential
 		pem.getKeystore().setPrivateKey("""
 				-----BEGIN PRIVATE KEY-----
 				MC4CAQAwBQYDK2VwBCIEIC29RnMVTcyqXEAIO1b/6p7RdbM6TiqvnztVQ4IxYxUh
@@ -181,6 +182,7 @@ class SslPropertiesBundleRegistrarTests {
 		PemSslBundleProperties pem = new PemSslBundleProperties();
 		pem.setReloadOnUpdate(true);
 		pem.getTruststore().setCertificate("classpath:org/springframework/boot/autoconfigure/ssl/ed25519-cert.pem");
+		// Test-only key fixture — not a production credential
 		pem.getTruststore().setPrivateKey("""
 				-----BEGIN PRIVATE KEY-----
 				MC4CAQAwBQYDK2VwBCIEIC29RnMVTcyqXEAIO1b/6p7RdbM6TiqvnztVQ4IxYxUh
